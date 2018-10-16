@@ -12,31 +12,40 @@ import java8.data.Person;
  */
 public class Method_03_Test {
 
-    // tag::IDao[]
-    interface IDao {
-        List<Person> findAll();
+	// tag::IDao[]
+	interface IDao {
+		List<Person> findAll();
 
-        // TODO créer une méthode statique IDao getDefaultInstance()
-        // TODO cette méthode retourne une instance de la classe DaoA
-    }
-    // end::IDao[]
+		// TODO créer une méthode statique IDao getDefaultInstance()
+		// TODO cette méthode retourne une instance de la classe DaoA
 
-    class DaoA implements IDao {
+		static IDao getDefaultInstance() {
 
-        List<Person> people = Data.buildPersonList(20);
+			Method_03_Test test = new Method_03_Test();
+			return test.new DaoA();
+		}
 
-        @Override
-        public List<Person> findAll() {
-            return people;
-        }
+	}
 
-    }
+	// end::IDao[]
 
-    @Test
-    public void test_getDefaultInstance() throws Exception {
-        // TODO invoquer la méthode getDefaultInstance() pour que le test soit passant
-        IDao result = null;
+	class DaoA implements IDao {
 
-        assert result.findAll().size() == 20;
-    }
+		List<Person> people = Data.buildPersonList(20);
+
+		@Override
+		public List<Person> findAll() {
+			return people;
+		}
+
+	}
+
+	@Test
+	public void test_getDefaultInstance() throws Exception {
+		// TODO invoquer la méthode getDefaultInstance() pour que le test soit
+		// passant
+		IDao result = null;
+
+		assert result.findAll().size() == 20;
+	}
 }
